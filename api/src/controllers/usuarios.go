@@ -11,7 +11,7 @@ import (
 	"net/http"
 )
 
-//cria um usuario novo no database
+//insere um usuario novo no database
 
 func CriarUsuario(w http.ResponseWriter, r *http.Request) {
 	corpoRequest, erro := io.ReadAll(r.Body)
@@ -30,7 +30,12 @@ func CriarUsuario(w http.ResponseWriter, r *http.Request) {
 	}
 
 	repositorio := repositorios.NovoRepositorioDeUsuarios(db)
-	repositorio.Criar(usuario)
+	usuarioID, erro := repositorio.Criar(usuario)
+	if erro != nil {
+		log.Fatal(erro)
+	}
+
+	w.Write([]byte(fmt.Sprintf("id inserido: %d", usuarioID)))
 
 }
 
