@@ -36,7 +36,7 @@ func (repositorio  Usuarios) Criar(usuario modelos.Usuario) (uint64, error) {
 
    ultimoIDInserido, erro := resultado.LastInsertId()
    if erro != nil {
-	return 0, error
+	return 0, erro
 
    }
 
